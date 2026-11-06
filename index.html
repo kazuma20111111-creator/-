@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>無料動画まとめTube</title>
+    <style>
+        /* サイト全体のデザイン（黒ベースのダークモード） */
+        body { font-family: Arial, sans-serif; background-color: #111; color: #fff; margin: 0; padding: 20px; }
+        header { text-align: center; padding: 10px 0; border-bottom: 2px solid #ff0000; }
+        h1 { color: #ff0000; margin: 0; }
+        
+        /* 動画カードが綺麗に並ぶグリッド設定 */
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; padding: 20px 0; }
+        
+        /* 動画カード1ひとつのデザイン */
+        .video-card { background-color: #222; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+        .video-thumbnail { width: 100%; height: auto; cursor: pointer; display: block; }
+        .video-title { padding: 10px; font-size: 14px; font-weight: bold; line-height: 1.4; }
+        
+        /* モーダル（クリックした時に動画が大きく開くポップアップ画面） */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { width: 90%; max-width: 800px; position: relative; }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        .close-btn { position: absolute; top: -40px; right: 0; color: #fff; font-size: 30px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>無料動画まとめTube</h1>
+    </header>
+
+    <!-- 👇 ここに動画カードが並びます -->
+    <div class="video-grid">
+
+        <!-- 動画1つ目 -->
+        <div class="video-card">
+            <!-- サムネイル画像（URLを書き換えて使います） -->
+            <img class="video-thumbnail" src="https://unsplash.com" alt="動画サムネイル" onclick="openModal('https://youtube.com')">
+            <div class="video-title">【おすすめ】ここに動画のタイトルを入力します</div>
+        </div>
+
+        <!-- 動画2つ目 -->
+        <div class="video-card">
+            <img class="video-thumbnail" src="https://unsplash.com" alt="動画サムネイル" onclick="openModal('https://youtube.com')">
+            <div class="video-title">【新着動画】ここに2個目のタイトルを入力します</div>
+        </div>
+
+        <!-- 💡 新しい動画を増やしたい時は、上の「動画1つ目」の塊（<div class="video-card">から</div>まで）をコピーして、この下に追加していけば無限に増やせます！ -->
+
+    </div>
+
+    <!-- 動画を大きく開くためのポップアップ画面の仕組み -->
+    <div id="videoModal" class="modal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div class="video-container">
+                <iframe id="videoPlayer" src="" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // サムネイルをクリックした時に動画を再生するJavascript
+        function openModal(videoUrl) {
+            document.getElementById('videoPlayer').src = videoUrl;
+            document.getElementById('videoModal').style.display = 'flex';
+        }
+        // 閉じるボタンを押した時に動画を止めるJavascript
+        function closeModal() {
+            document.getElementById('videoModal').style.display = 'none';
+            document.getElementById('videoPlayer').src = '';
+        }
+    </script>
+
+</body>
+</html>
